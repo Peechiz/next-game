@@ -6,13 +6,10 @@ import '../styles/globals.css'
 import HomePage, { GameWithTags } from './HomePage'
 
 async function getGames() {
-  try {
-    const res = await fetch('http://' + process.env.VERCEL_URL + '/api/games')
-    const games: GameWithTags[] = await res.json();
-    return games;
-  } catch (err) {
-    console.log('ERRuR', err)
-  }
+  const res = await fetch('http://' + process.env.VERCEL_URL + '/api/games')
+  console.log('ello?'+ res.body)
+  const games: GameWithTags[] = await res.json();
+  return games;
 }
 
 export default async function Page() {
