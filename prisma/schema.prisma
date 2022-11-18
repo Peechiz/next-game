@@ -1,0 +1,147 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+type GameMetadata {
+  artworks           GameMetadataArtworks[]
+  /// Multiple data types found: Int: 6.7%, GameMetadataCollection: 93.3% out of 15 sampled entries
+  collection         Json?
+  cover              GameMetadataCover
+  first_release_date Int
+  game_modes         GameMetadataGameModes[]
+  genres             GameMetadataGenres[]
+  id                 Int
+  name               String
+  platforms          GameMetadataPlatforms[]
+  slug               String
+  storyline          String?
+  summary            String
+  /// Multiple data types found: Int: 63.2%, GameMetadataTimeToBeat: 36.8% out of 19 sampled entries
+  time_to_beat       Json?
+  url                String
+  websites           GameMetadataWebsites[]
+}
+
+type GameMetadataArtworks {
+  id    Int
+  url   String
+  width Int
+}
+
+type GameMetadataCollection {
+  games GameMetadataCollectionGames[]
+  id    Int
+}
+
+type GameMetadataCollectionGames {
+  id   Int
+  name String
+}
+
+type GameMetadataCover {
+  alpha_channel Boolean?
+  animated      Boolean?
+  checksum      String?
+  game          Int
+  height        Int
+  id            Int
+  image_id      String
+  url           String
+  width         Int
+}
+
+type GameMetadataGameModes {
+  checksum   String?
+  created_at Int
+  id         Int
+  name       String
+  slug       String
+  updated_at Int
+  url        String
+}
+
+type GameMetadataGenres {
+  checksum   String?
+  created_at Int
+  id         Int
+  name       String
+  slug       String
+  updated_at Int
+  url        String
+}
+
+type GameMetadataPlatforms {
+  abbreviation     String?
+  alternative_name String?
+  category         Int?
+  checksum         String?
+  created_at       Int
+  generation       Int?
+  id               Int
+  name             String
+  platform_family  Int?
+  platform_logo    Int?
+  /// Multiple data types found: Int: 88.1%, GameMetadataPlatformsProductFamily: 11.9% out of 67 sampled entries
+  product_family   Json?
+  slug             String
+  summary          String?
+  updated_at       Int
+  url              String
+  versions         Int[]
+  websites         Int[]
+}
+
+type GameMetadataPlatformsProductFamily {
+  id   Int
+  name String
+  slug String
+}
+
+type GameMetadataTimeToBeat {
+  completely Int
+  hastly     Int
+  id         Int
+  normally   Int
+}
+
+type GameMetadataWebsites {
+  category Int
+  checksum String?
+  game     Int
+  id       Int
+  trusted  Boolean
+  url      String
+}
+
+type GameVideos {
+  id       String @map("_id") @db.ObjectId
+  name     String
+  video_id String
+}
+
+model Game {
+  id        String       @id @default(auto()) @map("_id") @db.ObjectId
+  v         Int          @map("__v")
+  metadata  GameMetadata
+  precision Int?
+  review    String
+  tagIDs    String[]     @db.ObjectId
+  tags      Tag[]        
+  videos    GameVideos[]
+  why       String?
+}
+
+model Tag {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  v          Int     @map("__v")
+  definition String?
+  icon       String?
+  name       String
+  Game       Game?   @relation(fields: [gameId], references: [id])
+  gameId     String? @db.ObjectId
+}
