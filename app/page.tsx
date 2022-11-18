@@ -5,8 +5,15 @@ import '../styles/globals.css'
 
 import HomePage, { GameWithTags } from './HomePage'
 
+let baseUrl: string;
+if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'production') {
+  baseUrl = 'https://' + process.env.NEXT_PUBLIC_VERCEL_URL
+} else {
+  baseUrl = 'http://' + process.env.NEXT_PUBLIC_VERCEL_URL
+}
+
 async function getGames() {
-  const res = await fetch(process.env.NEXT_PUBLIC_VERCEL_URL + '/api/games')
+  const res = await fetch(baseUrl + '/api/games')
   const games: GameWithTags[] = await res.json();
   return games;
 }
