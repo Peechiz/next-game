@@ -25,6 +25,8 @@ export default async function Page() {
 
       <main className={styles.main}>
         <h1>Why, hello there</h1>
+        <p>{process.env.NEXT_PUBLIC_VERCEL_ENV}</p>
+        <p>{process.env.NEXT_PUBLIC_VERCEL_URL}</p>
         {/* <HomePage games={games} /> */}
       </main>
     </div>
