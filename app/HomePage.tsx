@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 import {Prisma} from '@prisma/client'
 
 const gameWithTags = Prisma.validator<Prisma.GameArgs>()({
