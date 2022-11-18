@@ -6,7 +6,7 @@ import '../styles/globals.css'
 import HomePage, { GameWithTags } from './HomePage'
 
 async function getGames() {
-  const res = await fetch(process.env.NEXT_PUBLIC_API + '/games')
+  const res = await fetch(process.env.NEXT_PUBLIC_VERCEL_URL + '/api/games')
   const games: GameWithTags[] = await res.json();
   return games;
 }
