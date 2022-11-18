@@ -7,7 +7,7 @@ import { Prisma } from '@prisma/client'
 import HomePage, { GameWithTags } from './HomePage'
 
 async function getGames() {
-  const res = await fetch(process.env.VERCEL_URL + '/api/games')
+  const res = await fetch('http://' + process.env.VERCEL_URL + '/api/games')
   const games: GameWithTags[] = await res.json();
   return games;
 }
