@@ -1,6 +1,7 @@
 'use client';
 import {Prisma} from '@prisma/client'
 // import { useState } from 'react'
+import MiniDetail from './(components)/MiniDetail';
 
 const gameWithTags = Prisma.validator<Prisma.GameArgs>()({
   include: { tags: true }
@@ -19,11 +20,12 @@ export default function HomePage({ games }: { games: GameWithTags[] } ) {
   //   const games: GameWithTags[] = await res.json();
   //   setGames(games)
   // }
-
+  console.log(games[0])
   return (
     <div>
       {games?.map((game) => (
-        <div key={game.id}>{game.metadata.name}</div>
+        // <div key={game.id}>{game.metadata.name}</div>
+        <MiniDetail key={game.id} entry={game} click={() => {}} />
       ))}
     </div>
   );
